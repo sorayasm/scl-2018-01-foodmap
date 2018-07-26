@@ -1,7 +1,4 @@
 //MAPA
-
-
-
 var map, infoWindow, placeLoc;
 var scl = { lat: -33.4190451, lng: -70.6438986 };
 
@@ -18,79 +15,15 @@ function initMap() {
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
         location: scl,
-        radius: 10000,
-        keyword: "(restaurante) AND (restaurant)"
+        radius: 1000,
+        prominence: 1000,
+        keyword: "(restaurante) OR (restaurant) OR (establishments)"
     }, callback);
 
     //funcionalidad de tarjeta de busqueda
     var card = document.getElementById("pac-card");
     var input = document.getElementById("pac-input");
     var countries = document.getElementById("country-selector");
-
-
-    var autocomplete = new google.maps.places.Autocomplete(input);
-
-    // restricion de busqueda.
-    autocomplete.setComponentRestrictions({ "country": ["us", "pr", "vi", "gu", "mp"] });
-
-    // Data que se entrega.
-    autocomplete.setFields(
-        ["address_components", "geometry", "icon", "name"]);
-
-    var infowindow = new google.maps.InfoWindow();
-    var infowindowContent = document.getElementById("infowindow-content");
-    infowindow.setContent(infowindowContent);
-    var marker = new google.maps.Marker({
-        map: map,
-        anchorPoint: new google.maps.Point(0, -29)
-    });
-
-    autocomplete.addListener("place_changed", function() {
-        infowindow.close();
-        marker.setVisible(false);
-        var place = autocomplete.getPlace();
-        if (!place.geometry) {
-            // errror al ingresar un lugar fuera del rango.
-            window.alert("No details available for input: " + place.name + ".");
-            return;
-        }
-
-        // Si el lugar tiene un area se muestra en el mapa.
-        if (place.geometry.viewport) {
-            map.fitBounds(place.geometry.viewport);
-        } else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(13);
-        }
-        marker.setPosition(place.geometry.location);
-        marker.setVisible(true);
-
-        var address = "";
-        if (place.address_components) {
-            address = [
-                (place.address_components[0] && place.address_components[0].short_name || ""),
-                (place.address_components[1] && place.address_components[1].short_name || ""),
-                (place.address_components[2] && place.address_components[2].short_name || "")
-            ].join(" ");
-        }
-
-        infowindowContent.children["place-icon"].src = place.icon;
-        infowindowContent.children["place-name"].textContent = place.name;
-        infowindowContent.children["place-address"].textContent = address;
-        infowindow.open(map, marker);
-    });
-
-    // Lista de selecci[on de busqueda]
-    function setupClickListener(id, countries) {
-        var radioButton = document.getElementById(id);
-        radioButton.addEventListener("click", function() {
-            autocomplete.setComponentRestrictions({ "country": countries });
-        });
-    }
-
-    setupClickListener("changecountry-usa", "us");
-    setupClickListener(
-        "changecountry-usa-and-uot", ["us", "pr", "vi", "gu", "mp"]);
 
 
 }
@@ -113,7 +46,7 @@ function createMarker(place) {
     });
 
     google.maps.event.addListener(marker, "click", function() {
-        infoWindow.setContent('<div><strong>' + place.name + '</strong><br></div>');
+        infoWindow.setContent(place.name);
         infoWindow.open(map, this);
     });
 }
