@@ -6,6 +6,6 @@ function timeout() {
 }
 
 function redirect() {
-    window.location = "index.html"
+    window.location = "app.html"
     return
 }
