@@ -130,60 +130,22 @@
 /* Estilos de search */
 
 #search {
-    height: 150px;
+    height: 120px;
+    text-align: center;
 }
 
-#description {
-    font-family: Roboto;
-    font-size: 15px;
-    font-weight: 300;
+legend {
+    background-color: #000;
+    color: #fff;
+    padding: 3px 6px;
+    font-size: 16px;
 }
 
-#infowindow-content .title {
-    font-weight: bold;
+.output {
+    font-size: 1rem;
 }
 
-#infowindow-content {
-    display: none;
-}
-
-#map #infowindow-content {
-    display: inline;
-}
-
-.pac-card {
-    margin: 10px 10px 0 0;
-    background-color: #fff;
-    font-family: Roboto;
-}
-
-#pac-container {
-    padding-bottom: 12px;
-    margin-right: 12px;
-}
-
-.pac-controls {
-    display: inline-block;
-    padding: 5px 11px;
-}
-
-.pac-controls label {
-    font-family: Roboto;
-    font-size: 13px;
-    font-weight: 300;
-}
-
-#pac-input {
-    background-color: #fff;
-    font-family: Roboto;
-    font-size: 15px;
-    font-weight: 300;
-    margin-left: 12px;
-    padding: 0 11px 0 13px;
-    text-overflow: ellipsis;
-    width: 300px;
-}
-
-#pac-input:focus {
-    border-color: #4d90fe;
+input {
+    margin: .4rem;
+    font-size: 16px;
 }
