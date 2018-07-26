@@ -24,13 +24,13 @@
                 <div id="search">
                     <form>
                         <fieldset>
-                            <legend>Elige qué tipo de local a buscar cerca de ti:</legend>
+                            <legend>Elige qué tipo de local quieres buscar cerca de ti:</legend>
                             <div>
-                                <input type="radio" id="cafe" name="drone" checked />
+                                <input type="radio" id="cafe" name="select" value="cafe" onclick="handleClick(this);" />
                                 <label for="cafe">Café</label> &nbsp;&nbsp;
-                                <input type="radio" id="restaurant" name="drone" />
+                                <input type="radio" id="restaurant" name="select" value="restaurant" onclick="handleClick(this);" />
                                 <label for="restaurant">Restaurant</label> &nbsp;&nbsp;
-                                <input type="radio" id="bar" name="drone" />
+                                <input type="radio" id="bar" name="select" value="bar" onclick="handleClick(this);" />
                                 <label for="bar">Bar</label>
                             </div>
                         </fieldset>

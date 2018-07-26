@@ -1,4 +1,4 @@
-var map, infoWindow, placeLoc;
+var map, infoWindow, searchPlace, pos;
 var scl = { lat: -33.4190451, lng: -70.6438986 };
 
 
@@ -12,6 +12,9 @@ function initMap() {
         fullscreenControl: false,
         streetViewControl: false,
     });
+    if (searchPlace) {
+        nearbySearch(map)
+    };
 
     infoWindow = new google.maps.InfoWindow();
     // para mostrar elementos por keyword
@@ -23,6 +26,16 @@ function initMap() {
         keyword: "(food) AND (restaurant) AND (cafe)",
         type: ["establishment"],
     }, callback);
+}
+
+function nearbySearch(map) {
+    infowindow = new google.maps.InfoWindow();
+    var request = {
+        location: pos,
+        radius: 1000,
+        types: [JSON.stringify(select.value)],
+        key: "AIzaSyCOqZlf8w07M8yEiRjRcELfHrntiu4TdDA"
+    };
 }
 
 
@@ -52,7 +65,7 @@ function createMarker(place) {
 // funcion para la localizacion HTML5
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
+        pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
@@ -65,15 +78,24 @@ if (navigator.geolocation) {
         handleLocationError(true, infoWindow, map.getCenter());
     });
 } else {
-    // Browser doesn"t support Geolocation
+    // Browser no soporta geolocalizacion
     handleLocationError(false, infoWindow, map.getCenter());
 }
 
-// funcion para la localizacion del usuario
+// funcion para el error de la localizacion del usuario
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ?
         "Error: La geolocalización falló." :
         "Error: Tu navegador no soporta la geolocalización.");
     infoWindow.open(map);
+}
+
+// funcion del select
+var currentValue = 0;
+
+function handleClick(select) {
+    searchPlace = select.value;
+    //arreglar aca
+    initMap();
 }
