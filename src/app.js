@@ -62,10 +62,64 @@ var select = 0;
 function handleClick(select) {
     searchPlace = JSON.stringify(select.value);
     console.log(searchPlace)
-    nearbySearch(map);
+    if (select.value === "cafe") {
+        map = new google.maps.Map(document.getElementById("map-canvas"), {
+            center: pos || scl,
+            zoom: 13,
+            mapTypeControl: false,
+            scaleControl: true,
+            fullscreenControl: false,
+            streetViewControl: false,
+        });
+
+        infowindow = new google.maps.InfoWindow();
+        service.nearbySearch({
+            location: pos,
+            radius: 1000,
+            rankby: "distance",
+            keyword: "cafe",
+            type: ["establishment"],
+        }, callback);
+    } else if (select.value === "bar") {
+        map = new google.maps.Map(document.getElementById("map-canvas"), {
+            center: pos || scl,
+            zoom: 13,
+            mapTypeControl: false,
+            scaleControl: true,
+            fullscreenControl: false,
+            streetViewControl: false,
+        });
+
+        infowindow = new google.maps.InfoWindow();
+        service.nearbySearch({
+            location: pos,
+            radius: 1000,
+            rankby: "distance",
+            keyword: "bar",
+            type: ["establishment"],
+        }, callback);
+    } else {
+        map = new google.maps.Map(document.getElementById("map-canvas"), {
+            center: pos || scl,
+            zoom: 13,
+            mapTypeControl: false,
+            scaleControl: true,
+            fullscreenControl: false,
+            streetViewControl: false,
+        });
+
+        infowindow = new google.maps.InfoWindow();
+        service.nearbySearch({
+            location: pos,
+            radius: 1000,
+            rankby: "distance",
+            keyword: "restaurant",
+            type: ["establishment"],
+        }, callback);
+    }
 }
 
-//nueva busqueda
+/*//nueva busqueda
 function nearbySearch(searchPlace) {
     map = new google.maps.Map(document.getElementById("map-canvas"), {
         center: pos || scl,
@@ -85,7 +139,7 @@ function nearbySearch(searchPlace) {
         type: ["establishment"],
         query: searchPlace
     }, callback);
-}
+}*/
 
 // funcion del callback
 function callback(results, status) {
