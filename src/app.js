@@ -59,15 +59,16 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 var currentValue = 0;
 var select = 0;
 
-function handleClick() {
-    searchPlace = select.value;
+function handleClick(select) {
+    searchPlace = JSON.stringify(select.value);
+    console.log(searchPlace)
     nearbySearch(map);
 }
 
 //nueva busqueda
-function nearbySearch(map) {
+function nearbySearch(searchPlace) {
     map = new google.maps.Map(document.getElementById("map-canvas"), {
-        center: pos,
+        center: pos || scl,
         zoom: 13,
         mapTypeControl: false,
         scaleControl: true,
@@ -80,7 +81,9 @@ function nearbySearch(map) {
         location: pos,
         radius: 1000,
         rankby: "distance",
-        type: [searchPlace],
+        keyword: "(bar) AND (restaurant) AND (cafe)",
+        type: ["establishment"],
+        query: searchPlace
     }, callback);
 }
 
